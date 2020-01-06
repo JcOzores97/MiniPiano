@@ -1,0 +1,58 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#piano {
+	width: 70vw;
+	height: 50vh;
+	border: solid 2px darkblue;
+	display: flex;
+}
+#left-side {
+	width: 30vw;
+	display: flex;
+	justify-content: space-between;
+}
+#right-side {
+	width: 40vw;
+	display: flex;
+	justify-content: space-between;
+}
+.key {
+	border: solid 1px black;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+}
+.black {
+	width: 7.5vw;
+	height: 30vh;
+	background-color: black;
+	color: white;
+	z-index: 2;
+	/* se modifican los margenes  para que ocupen la mitad del ancho de las teclas blancas */
+	margin-right: -5vw;
+	margin-left: -5vw;
+}
+.white {
+	color: black;
+	width: 10vw;
+}
+.activeKey {
+	background-color: blueviolet;
+}
+/* PANTALLAS PEQUEÑAS */
+
+@media (max-width: 720px) {
+	#piano {
+		transform: rotate(90deg);
+	}
+}
