@@ -35,7 +35,7 @@ function piano() {
 		tocarNota();
 	}
 
-	//EventListener para Escuhar nota por uso del teclado
+	//EventListener para Escuchar nota por uso del teclado
 	document.addEventListener('keydown', (evento) => {
 		if (evento.repeat) {
 			//para evitar sonidos raros al mantener pulsada una letra del teclado
@@ -43,7 +43,7 @@ function piano() {
 		}
 		const letraPulsada = evento.key.toUpperCase();
 		if (teclasVinculadas.hasOwnProperty(letraPulsada) == true) {
-			//no se ejecuta el sig código en el caso de que la tecla pulsda NO sea propertyName en el objeto teclasVinculadas;
+			//Se escucha nota en el caso de que la letraPulsada tenga una tecla relacionada.
 			tocarNotaPorTeclado(letraPulsada);
 			const elementoTecla = obtenerElementoTecla(letraPulsada);
 			estilizarTeclaPiano(elementoTecla);
@@ -73,7 +73,7 @@ function piano() {
 
 	function estilizarTeclaPiano(tecla) {
 		tecla.classList.add('activeKey');
-		//se quita la animación cuando termina el audio
+		//se quitan los estilos cuando termina el audio
 		audio.addEventListener('ended', () => {
 			tecla.classList.remove('activeKey');
 		});
