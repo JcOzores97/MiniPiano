@@ -54,6 +54,7 @@ body {
 @media (max-width: 720px) {
 	#piano {
 		transform: rotate(90deg);
+                width:92vw;
 	}
 	#left-side {
 		width: 39vw;
