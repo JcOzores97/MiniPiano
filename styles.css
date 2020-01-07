@@ -55,4 +55,18 @@ body {
 	#piano {
 		transform: rotate(90deg);
 	}
+	#left-side {
+		width: 39vw;
+	}
+	#right-side {
+		width: 52vw;
+	}
+	.black {
+		width: 9.5vw;
+		margin-right: -5vw;
+		margin-left: -6vw;
+	}
+	.white {
+		width: 13vw;
+	}
 }
