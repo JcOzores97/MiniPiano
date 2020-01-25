@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', piano);
 
 function piano() {
-	//cada instancia de PianoKey tiene como propiedades una referencia a sus elementos html correspondientes (tanto visual como de audio )
+	//Cada instancia de PianoKey tiene como propiedades una referencia a sus elementos html correspondientes (tanto visual como de audio )
 	class PianoKey {
 		constructor(note, key) {
 			this.note = note;
