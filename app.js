@@ -1,81 +1,65 @@
 document.addEventListener('DOMContentLoaded', piano);
 
 function piano() {
-	const teclasPiano = document.querySelectorAll('.key');
-	const arrTeclasPiano = [ ...teclasPiano ];
-
-	//relación letras del teclado (propertyNames) con notas del piano (propertyValues);.
-	const teclasVinculadas = {
-		A: 'C',
-		W: 'Db',
-		S: 'D',
-		E: 'Eb',
-		D: 'E',
-		F: 'F',
-		T: 'Gb',
-		G: 'G',
-		Y: 'Ab',
-		H: 'A',
-		U: 'Bb',
-		J: 'B'
-	};
-	let audio;
-
-	//EventListener para escuchar nota por haber clickeado una tecla:
-	teclasPiano.forEach((teclaPiano) => {
-		teclaPiano.addEventListener('click', () => {
-			tocarNotaPorClick(teclaPiano);
-			estilizarTeclaPiano(teclaPiano);
-		});
-	});
-
-	function tocarNotaPorClick(teclaClikeada) {
-		//obtención de elemento de audio correspondiete a la tecla clickeada
-		audio = document.getElementById(teclaClikeada.dataset.note);
-		tocarNota();
+	//cada instancia de PianoKey tiene como propiedades una referencia a sus elementos html correspondientes (tanto visual como de audio )
+	class PianoKey {
+		constructor(note, key) {
+			this.note = note;
+			this.key = key;
+			this.keyElement = document.getElementById(key);
+			this.audioElement = document.getElementById(note);
+		}
+		get playNote() {
+			this.audioElement.currentTime = 0;
+			this.audioElement.play();
+		}
+		get addStyleToKey() {
+			this.keyElement.classList.add('activeKey');
+		}
+		get removeStyleFromKey() {
+			//solo aplicable una vez que se reprodujo el audioElement
+			this.audioElement.addEventListener('ended', () => this.keyElement.classList.remove('activeKey'));
+		}
 	}
 
-	//EventListener para Escuchar nota por uso del teclado
-	document.addEventListener('keydown', (evento) => {
-		if (evento.repeat) {
+	//nombre de cada instancia de  PianoKey  refiere a la letra del teclado que la hace sonar
+	let A = new PianoKey('Ca', 'A');
+	let W = new PianoKey('Db', 'W');
+	let S = new PianoKey('Da', 'S');
+	let E = new PianoKey('Eb', 'E');
+	let D = new PianoKey('Ea', 'D');
+	let F = new PianoKey('Fa', 'F');
+	let T = new PianoKey('Gb', 'T');
+	let G = new PianoKey('Ga', 'G');
+	let Y = new PianoKey('Ab', 'Y');
+	let H = new PianoKey('Aa', 'H');
+	let U = new PianoKey('Bb', 'U');
+	let J = new PianoKey('Ba', 'J');
+
+	const pianoKeys = [ A, W, S, E, D, F, T, G, Y, H, U, J ];
+
+	//uso del piano clickeado una tecla:
+	for (let i = 0; i < pianoKeys.length; i++) {
+		pianoKeys[i].keyElement.addEventListener('click', () => {
+			pianoKeys[i].playNote;
+			pianoKeys[i].addStyleToKey;
+			pianoKeys[i].removeStyleFromKey;
+		});
+	}
+
+	//uso del piano usando el teclado
+	document.addEventListener('keydown', (ev) => {
+		if (ev.repeat) {
 			//para evitar sonidos raros al mantener pulsada una letra del teclado
 			return;
 		}
-		const letraPulsada = evento.key.toUpperCase();
-		if (teclasVinculadas.hasOwnProperty(letraPulsada) == true) {
-			//Se escucha nota en el caso de que la letraPulsada tenga una tecla relacionada.
-			tocarNotaPorTeclado(letraPulsada);
-			const elementoTecla = obtenerElementoTecla(letraPulsada);
-			estilizarTeclaPiano(elementoTecla);
+		const pressedKey = ev.key.toUpperCase();
+		//se busca en el array PianoKeys el objeto cuyo valor de la propiedad "key" es igual al valor de "pressedKey"
+		const keyToPlay = pianoKeys.filter((pianoKey) => pianoKey.key == pressedKey);
+		if (keyToPlay.length == 1) {
+			keyToPlay[0].playNote;
+			keyToPlay[0].addStyleToKey;
+			keyToPlay[0].removeStyleFromKey;
 		}
 	});
-
-	function tocarNotaPorTeclado(letra) {
-		//obtención de elemento de audio correspondiete a la nota
-		audio = document.getElementById(teclasVinculadas[letra]);
-		tocarNota();
-	}
-
-	function tocarNota() {
-		audio.currentTime = 0;
-		audio.play();
-	}
-
-	function obtenerElementoTecla(letra) {
-		//se filtra array de teclas para quedarse solo con la pulsada por el usuario
-		const arrElementoTecla = arrTeclasPiano.filter((teclaPiano) => {
-			if (teclaPiano.textContent == letra) {
-				return true;
-			}
-		});
-		return arrElementoTecla[0];
-	}
-
-	function estilizarTeclaPiano(tecla) {
-		tecla.classList.add('activeKey');
-		//se quitan los estilos cuando termina el audio
-		audio.addEventListener('ended', () => {
-			tecla.classList.remove('activeKey');
-		});
-	}
 }
