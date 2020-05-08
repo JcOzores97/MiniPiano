@@ -7,6 +7,8 @@ function app() {
 		constructor(note, key) {
 			this.keyElement = document.getElementById(key);
 			this.audioElement = document.getElementById(note);
+			this.note = note;
+			this.key = key;
 		}
 	}
 
@@ -30,6 +32,32 @@ function app() {
 		playNote(keyName) {
 			piano.keys[keyName].audioElement.currentTime = 0;
 			piano.keys[keyName].audioElement.play();
+		},
+		isRecording: false,
+		recordNotes() {
+			const note = event.target.id;
+			let key;
+			//búsqueda de la letra que hace sonar a la nota
+			for (let pianoKeyName in piano.keys) {
+				if (piano.keys[pianoKeyName].note == note) {
+					key = piano.keys[pianoKeyName].key;
+				}
+			}
+			const timeSinceStart = Date.now() - piano.recordStart;
+			piano.recordedNotes.push({ key, note, timeSinceStart });
+		},
+		recordedNotes: [],
+		playRecordedNotes() {
+			if (piano.recordedNotes.length == 0) {
+				return;
+			}
+			piano.recordedNotes.forEach((recordedNote) => {
+				setTimeout(() => {
+					piano.playNote(recordedNote.key);
+					UI.addStyleToKey(recordedNote.key);
+					UI.removeStyleFromKeyWhenAudioFinishes(recordedNote.key);
+				}, recordedNote.timeSinceStart);
+			});
 		}
 	};
 
@@ -37,8 +65,8 @@ function app() {
 		addStyleToKey(keyName) {
 			piano.keys[keyName].keyElement.classList.add('activeKey');
 		},
-		removeStyleFromKey(keyName) {
-			//eliminación del estilo en la tecla cuando termina el audio element relacionado con la misma
+		removeStyleFromKeyWhenAudioFinishes(keyName) {
+			//eliminación del estilo en la tecla cuando termina el audio  relacionado con la misma
 			piano.keys[keyName].audioElement.addEventListener('ended', () => {
 				piano.keys[keyName].keyElement.classList.remove('activeKey');
 			});
@@ -51,7 +79,7 @@ function app() {
 		let clickedKeyName = ev.target.id;
 		UI.addStyleToKey(clickedKeyName);
 		piano.playNote(clickedKeyName);
-		UI.removeStyleFromKey(clickedKeyName);
+		UI.removeStyleFromKeyWhenAudioFinishes(clickedKeyName);
 	});
 
 	//uso del piano usando el teclado
@@ -64,7 +92,34 @@ function app() {
 		if (pressedKeyName in piano.keys) {
 			UI.addStyleToKey(pressedKeyName);
 			piano.playNote(pressedKeyName);
-			UI.removeStyleFromKey(pressedKeyName);
+			UI.removeStyleFromKeyWhenAudioFinishes(pressedKeyName);
 		}
 	});
+
+	//grabación-reproducción
+	document.getElementById('record-button').addEventListener('click', (ev) => {
+		if (piano.isRecording == false) {
+			piano.isRecording = true;
+			piano.recordedNotes = []; //limpieza de notas grabadas previamente si es que las hay
+			piano.recordStart = Date.now();
+			ev.currentTarget.classList.replace('not-recording', 'recording');
+			document.getElementById('play-button').classList.add('hide');
+			for (let pianoKey in piano.keys) {
+				piano.keys[pianoKey].audioElement.addEventListener('play', piano.recordNotes);
+			}
+			return;
+		}
+		if (piano.isRecording == true) {
+			piano.isRecording = false;
+			ev.currentTarget.classList.replace('recording', 'not-recording');
+			if (piano.recordedNotes.length >= 1) {
+				document.getElementById('play-button').classList.remove('hide');
+			}
+			for (let pianoKey in piano.keys) {
+				piano.keys[pianoKey].audioElement.removeEventListener('play', piano.recordNotes);
+			}
+		}
+	});
+
+	document.getElementById('play-button').addEventListener('click', piano.playRecordedNotes);
 }

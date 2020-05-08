@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=w, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Javascript Piano</title>
+    <script src="https://kit.fontawesome.com/48fd029ae7.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="piano">
+    <section id="buttons">
+        <button id="play-button" class="hide"><i class="fas fa-play"></i></button>
+        <button id="record-button" class="not-recording"><i class="fas fa-microphone"></i></button>
+    </section>
+    <section id="piano">
         <div id="left-side">
             <div class="key white" id="A" >A</div>
             <div class="key black" id="W" >W</div>
@@ -25,7 +30,7 @@
             <div  class="key black" id="U" >U</div>
             <div  class="key white" id="J" >J</div>    
         </div>        
-    </div>
+    </section>
 
     
     <audio id="Ca" src="notes/C.mp3"></audio>
@@ -41,6 +46,6 @@
     <audio id="Bb" src="notes/Bb.mp3"></audio>
     <audio id="Ba" src="notes/B.mp3"></audio>
     
-    <script src="app.js"></script>
+    <script  src="app.js"></script>
 </body>
 </html>

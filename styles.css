@@ -7,9 +7,32 @@
 body {
 	height: 100vh;
 	display: flex;
+	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 	background: url(./img/Musical-notes-wallpaper-singing-38409245-1920-1080.jpg) no-repeat;
+}
+#buttons {
+	display: flex;
+	flex-direction: column;
+	margin: 20px;
+}
+#play-button {
+	background-color: royalblue;
+}
+#play-button,
+#record-button {
+	padding: 8px 10px;
+	margin-bottom: 10px;
+	border-radius: 4px;
+	border: solid 1px transparent;
+	color: white;
+	font-size: xx-large;
+}
+#play-button:hover,
+#record-button:hover {
+	border: solid 1px black;
+	box-shadow: 0px 0px 10px black;
 }
 #piano {
 	width: 70vw;
@@ -52,13 +75,27 @@ body {
 .activeKey {
 	background-color: blueviolet;
 }
+
+.hide {
+	display: none !important;
+}
+.recording {
+	background-color: red;
+}
+.not-recording {
+	background-color: green;
+}
 /* PANTALLAS PEQUEÑAS */
 
 @media (max-width: 720px) {
-	#piano {
+	body {
 		transform: rotate(90deg);
+	}
+	#buttons {
+		justify-self: center;
+	}
+	#piano {
 		min-width: max-content;
-
 		max-height: 340px;
 	}
 	#left-side {
@@ -77,7 +114,7 @@ body {
 	}
 }
 
-@media (max-width: 300px) {
+@media (max-width: 400px) {
 	#piano {
 		max-height: 240px;
 	}
