@@ -150,9 +150,6 @@ body {
 }
 
 @media (max-width: 370px) {
-	body {
-		background-image: url(./img/Musical-notes-small-screens.png);
-	}
 	#piano {
 		max-height: 240px;
 	}
