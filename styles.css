@@ -4,6 +4,10 @@
 	box-sizing: border-box;
 }
 
+:root {
+	--progress-bar-fill-duration: 3s;
+}
+
 body {
 	height: 100vh;
 	display: flex;
@@ -33,6 +37,32 @@ body {
 #record-button:hover {
 	border: solid 1px black;
 	box-shadow: 0px 0px 10px black;
+}
+.progress-bar {
+	height: 46vh;
+	width: 20px;
+	margin-right: 20px;
+	border-radius: 2px;
+	position: relative;
+}
+.progress-bar-content {
+	position: absolute;
+	bottom: 0px;
+	width: 18px;
+	border-radius: 2px;
+	background-color: royalblue;
+}
+.progress-bar-content-animation {
+	animation: fill-progress-bar var(--progress-bar-fill-duration) linear;
+}
+/* animación de la barra */
+@keyframes fill-progress-bar {
+	from {
+		height: 0px;
+	}
+	to {
+		height: 100%;
+	}
 }
 #piano {
 	width: 70vw;
@@ -90,9 +120,14 @@ body {
 @media (max-width: 720px) {
 	body {
 		transform: rotate(90deg);
+		overflow: hidden;
 	}
 	#buttons {
 		justify-self: center;
+	}
+	.progress-bar {
+		height: 240px;
+		margin-right: 30px;
 	}
 	#piano {
 		min-width: max-content;
@@ -114,7 +149,10 @@ body {
 	}
 }
 
-@media (max-width: 400px) {
+@media (max-width: 370px) {
+	body {
+		background-image: url(./img/Musical-notes-small-screens.png);
+	}
 	#piano {
 		max-height: 240px;
 	}
