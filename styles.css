@@ -9,17 +9,25 @@
 }
 
 body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	background: url(./img/Musical-notes-wallpaper-singing-38409245-1920-1080.jpg) no-repeat;
+}
+.container {
+	transform: rotate(90deg);
 	height: 100vh;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	background: url(./img/Musical-notes-wallpaper-singing-38409245-1920-1080.jpg) no-repeat;
 }
 #buttons {
 	display: flex;
 	flex-direction: column;
 	margin: 20px;
+	margin-left: 80px;
 }
 #play-button {
 	background-color: royalblue;
@@ -39,7 +47,7 @@ body {
 	box-shadow: 0px 0px 10px black;
 }
 .progress-bar {
-	height: 46vh;
+	height: 60vw;
 	width: 20px;
 	margin-right: 20px;
 	border-radius: 2px;
@@ -65,20 +73,20 @@ body {
 	}
 }
 #piano {
-	width: 70vw;
-	height: 50vh;
+	width: 70vh;
+	height: 80vw;
 	border: solid 1px black;
 	display: flex;
 	background-color: white;
 	box-shadow: 0px 0px 10px black;
 }
 #left-side {
-	width: 30vw;
+	width: 30vh;
 	display: flex;
 	justify-content: space-between;
 }
 #right-side {
-	width: 40vw;
+	width: 40vh;
 	display: flex;
 	justify-content: space-between;
 }
@@ -89,18 +97,18 @@ body {
 	justify-content: center;
 }
 .black {
-	width: 7.5vw;
-	height: 30vh;
+	width: 7.5vh;
+	height: 45vw;
 	background-color: black;
 	color: white;
 	z-index: 2;
 	/* se modifican los margenes  para que ocupen la mitad del ancho de las teclas blancas */
-	margin-right: -5vw;
-	margin-left: -5vw;
+	margin-right: -5vh;
+	margin-left: -5vh;
 }
 .white {
 	color: black;
-	width: 10vw;
+	width: 10vh;
 }
 .activeKey {
 	background-color: blueviolet;
@@ -115,47 +123,48 @@ body {
 .not-recording {
 	background-color: green;
 }
-/* PANTALLAS PEQUEÑAS */
 
-@media (max-width: 720px) {
-	body {
-		transform: rotate(90deg);
-		overflow: hidden;
-	}
-	#buttons {
-		justify-self: center;
-	}
+@media (min-width: 400px) {
 	.progress-bar {
-		height: 240px;
-		margin-right: 30px;
+		height: 70vw;
 	}
 	#piano {
-		min-width: max-content;
-		max-height: 340px;
-	}
-	#left-side {
-		min-width: 225px;
-	}
-	#right-side {
-		min-width: 300px;
+		height: 70vw;
 	}
 	.black {
-		width: 50px;
-		margin-right: -30px;
-		margin-left: -30px;
-	}
-	.white {
-		width: 75px;
+		height: 40vw;
 	}
 }
 
-@media (max-width: 370px) {
+@media (min-width: 720px) {
+	.container {
+		transform: unset;
+	}
+	#buttons {
+		margin-left: unset;
+	}
+	.progress-bar {
+		height: 55vh;
+	}
 	#piano {
-		max-height: 240px;
+		width: 70vw;
+		height: 60vh;
+	}
+
+	#left-side {
+		width: 30vw;
+	}
+	#right-side {
+		width: 40vw;
 	}
 	.black {
-		margin-right: -35px;
-		margin-left: -35px;
-		height: 150px;
+		width: 7.5vw;
+		height: 35vh;
+		/* se modifican los margenes  para que ocupen la mitad del ancho de las teclas blancas */
+		margin-right: -5vw;
+		margin-left: -5vw;
+	}
+	.white {
+		width: 10vw;
 	}
 }
