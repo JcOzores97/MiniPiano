@@ -9,15 +9,17 @@
 }
 
 body {
+	min-height: 100vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	overflow: hidden;
-	background: url(./img/Musical-notes-wallpaper-singing-38409245-1920-1080.jpg) no-repeat;
+	background: url(./img/Musical-notes-small-screens.png) no-repeat;
+	background-size: cover;
 }
 .container {
 	transform: rotate(90deg);
-	height: 100vh;
+	height: 100%;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -27,7 +29,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	margin: 20px;
-	margin-left: 80px;
+	margin-left: 40px;
 }
 #play-button {
 	background-color: royalblue;
@@ -137,6 +139,9 @@ body {
 }
 
 @media (min-width: 720px) {
+	body {
+		background: url(./img/Musical-notes-wallpaper-singing-38409245-1920-1080.jpg) no-repeat;
+	}
 	.container {
 		transform: unset;
 	}
