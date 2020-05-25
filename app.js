@@ -40,6 +40,7 @@ function app() {
 			piano.recordedNotes = [];
 			piano.recordStart = Date.now();
 			ev.currentTarget.classList.replace('not-recording', 'recording');
+			UI.blinkIcon(document.querySelector('.fa-microphone'));
 			document.getElementById('play-button').classList.add('hide');
 			piano.pianoKeys.forEach((pianoKey) => {
 				pianoKey.audioElement.addEventListener('play', piano.recordNotes);
@@ -50,6 +51,7 @@ function app() {
 			isRecording = false;
 			piano.recordFinish = Date.now();
 			ev.currentTarget.classList.replace('recording', 'not-recording');
+			UI.removeBlinkFromIcon(document.querySelector('.fa-microphone'));
 			if (piano.recordedNotes.length >= 1) {
 				document.getElementById('play-button').classList.remove('hide');
 			}
@@ -61,12 +63,15 @@ function app() {
 
 	document.getElementById('play-button').addEventListener('click', () => {
 		piano.playRecordedNotes();
+		const playIcon = document.querySelector('.fa-play');
+		UI.blinkIcon(playIcon);
 		const recordTotalTime = (piano.recordFinish - piano.recordStart) / 1000; //en segundos
 		document.documentElement.style.setProperty('--progress-bar-fill-duration', `${recordTotalTime}s`);
 		const progressBar = document.querySelector('.progress-bar-content');
 		progressBar.classList.add('progress-bar-content-animation');
 		progressBar.addEventListener('animationend', () => {
 			progressBar.classList.remove('progress-bar-content-animation');
+			UI.removeBlinkFromIcon(playIcon);
 		});
 	});
 }
