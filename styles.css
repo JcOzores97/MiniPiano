@@ -34,6 +34,9 @@ body {
 #play-button {
 	background-color: royalblue;
 }
+#record-button {
+	background-color: red;
+}
 #play-button,
 #record-button {
 	padding: 8px 10px;
@@ -48,10 +51,11 @@ body {
 	border: solid 1px black;
 	box-shadow: 0px 0px 10px black;
 }
+
 .blinkIcon {
 	animation: blinkIcon 1s linear infinite;
 }
-/* animación de la barra */
+/* animación de los íconos */
 @keyframes blinkIcon {
 	from {
 		opacity: 0;
@@ -131,11 +135,9 @@ body {
 .hide {
 	display: none !important;
 }
-.recording {
-	background-color: red;
-}
-.not-recording {
-	background-color: green;
+
+.disabled {
+	pointer-events: none;
 }
 
 @media (min-width: 400px) {

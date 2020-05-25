@@ -39,7 +39,6 @@ function app() {
 			isRecording = true;
 			piano.recordedNotes = [];
 			piano.recordStart = Date.now();
-			ev.currentTarget.classList.replace('not-recording', 'recording');
 			UI.blinkIcon(document.querySelector('.fa-microphone'));
 			document.getElementById('play-button').classList.add('hide');
 			piano.pianoKeys.forEach((pianoKey) => {
@@ -50,7 +49,6 @@ function app() {
 		if (isRecording == true) {
 			isRecording = false;
 			piano.recordFinish = Date.now();
-			ev.currentTarget.classList.replace('recording', 'not-recording');
 			UI.removeBlinkFromIcon(document.querySelector('.fa-microphone'));
 			if (piano.recordedNotes.length >= 1) {
 				document.getElementById('play-button').classList.remove('hide');
